@@ -1,0 +1,45 @@
+-- create new folders on the new disk
+-- assign read/write rules for SQL server and agent
+
+use master
+alter database DocSysTest
+modify file (name = 'DocSys_Data', filename = 'G:\SQLData\DocSysTest.mdf');
+modify file (name = 'DocSys_BinData', filename = 'G:\SQLData\DocSysTest_BinData.mdf');
+modify file (name = 'DocSys_DocData', filename = 'G:\SQLData\DocSysTest_DocData.mdf');
+modify file (name = 'DocSys_Index', filename = 'G:\SQLData\DocSysTest_index.mdf');
+modify file (name = 'DocSys_Log', filename = 'G:\SQLLogs\DocSysTest_log.ldf');
+
+alter database DocSysBeta
+modify file (name = 'DocSys_Data', filename = 'G:\SQLData\DocSysBeta.mdf');
+modify file (name = 'DocSys_BinData', filename = 'G:\SQLData\DocSysBeta_BinData.mdf');
+modify file (name = 'DocSys_DocData', filename = 'G:\SQLData\DocSysBeta_DocData.mdf');
+modify file (name = 'DocSys_Index', filename = 'G:\SQLData\DocSysBeta_index.mdf');
+modify file (name = 'DocSys_Log', filename = 'G:\SQLLogs\DocSysBeta_log.ldf');
+
+alter database SC
+modify file (name = 'SC', filename = 'G:\SQLData\SC.mdf');
+modify file (name = 'SC_log', filename = 'G:\SQLLogs\SC.ldf');
+
+alter database SC2010_TEST
+modify file (name = 'SC2010_Data', filename = 'G:\SQLData\SC2010_Data.mdf');
+modify file (name = 'SC2010_1_Data', filename = 'G:\SQLData\SC2010_1_Data.mdf');
+modify file (name = 'SC2010_Log', filename = 'G:\SQLLogs\SC2010_Log.ldf');
+
+alter database SCDataCollection
+modify file (name = 'SCDataCollection', filename = 'G:\SQLData\SCDataCollection.mdf');
+modify file (name = 'SCDataCollection_log', filename = 'G:\SQLLogs\SCDataCollection_log.ldf');
+
+
+alter database DocSysTest set OFFLINE with ROLLBACK IMMEDIATE;
+alter database DocSysBeta set OFFLINE with ROLLBACK IMMEDIATE;
+alter database SC set OFFLINE with ROLLBACK IMMEDIATE;
+alter database SC2010_TEST set OFFLINE with ROLLBACK IMMEDIATE;
+alter database SCDataCollection set OFFLINE with ROLLBACK IMMEDIATE;
+
+-- copy the files from their original location to the new one
+
+alter database DocSysTest set ONLINE;
+alter database DocSysBeta set ONLINE;
+alter database SC set ONLINE;
+alter database SC2010_TEST set ONLINE;
+alter database SCDataCollection set ONLINE;
